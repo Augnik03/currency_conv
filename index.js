@@ -19,9 +19,9 @@ for (let i = 0; i < dropList.length; i++) {
 
 function loadFlag(element){
     for(let code in country_list){
-        if(code == element.value){ // if currency code of country list is equal to option value
-            let imgTag = element.parentElement.querySelector("img"); // selecting img tag of particular drop list
-            // passing country code of a selected currency code in a img url
+        if(code == element.value){ 
+            let imgTag = element.parentElement.querySelector("img"); 
+           
             imgTag.src = `https://flagcdn.com/48x36/${country_list[code].toLowerCase()}.png`;
         }
     }
@@ -38,31 +38,31 @@ getButton.addEventListener("click", e =>{
 
 const exchangeIcon = document.querySelector("form .icon");
 exchangeIcon.addEventListener("click", ()=>{
-    let tempCode = fromCurrency.value; // temporary currency code of FROM drop list
-    fromCurrency.value = toCurrency.value; // passing TO currency code to FROM currency code
-    toCurrency.value = tempCode; // passing temporary currency code to TO currency code
-    loadFlag(fromCurrency); // calling loadFlag with passing select element (fromCurrency) of FROM
-    loadFlag(toCurrency); // calling loadFlag with passing select element (toCurrency) of TO
-    getExchangeRate(); // calling getExchangeRate
+    let tempCode = fromCurrency.value; 
+    fromCurrency.value = toCurrency.value; 
+    toCurrency.value = tempCode; 
+    loadFlag(fromCurrency); 
+    loadFlag(toCurrency); 
+    getExchangeRate();
 })
 
 function getExchangeRate(){
     const amount = document.querySelector("form input");
     const exchangeRateTxt = document.querySelector("form .exchange-rate");
     let amountVal = amount.value;
-    // if user don't enter any value or enter 0 then we'll put 1 value by default in the input field
+    
     if(amountVal == "" || amountVal == "0"){
         amount.value = "1";
         amountVal = 1;
     }
     exchangeRateTxt.innerText = "Getting exchange rate...";
     let url = `https://v6.exchangerate-api.com/v6/ea77b0361a1aeb7467ed05d1/latest/${currency_code}`;
-    // fetching api response and returning it with parsing into js obj and in another then method receiving that obj
+   
     fetch(url).then(response => response.json()).then(result =>{
-        let exchangeRate = result.conversion_rates[toCurrency.value]; // getting user selected TO currency rate
-        let totalExRate = (amountVal * exchangeRate).toFixed(2); // multiplying user entered value with selected TO currency rate
+        let exchangeRate = result.conversion_rates[toCurrency.value]; 
+        let totalExRate = (amountVal * exchangeRate).toFixed(2); 
         exchangeRateTxt.innerText = `${amountVal} ${fromCurrency.value} = ${totalExRate} ${toCurrency.value}`;
-    }).catch(() =>{ // if user is offline or any other error occured while fetching data then catch function will run
+    }).catch(() =>{
         exchangeRateTxt.innerText = "Something went wrong";
     });
 }
