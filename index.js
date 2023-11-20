@@ -13,7 +13,7 @@ for (let i = 0; i < dropList.length; i++) {
         dropList[i].insertAdjacentHTML("beforeend", optionTag);
     }
     dropList[i].addEventListener("change", e =>{
-        loadFlag(e.target); // calling loadFlag with passing target element as an argument
+        loadFlag(e.target); 
     });
 }
 
@@ -32,7 +32,7 @@ window.addEventListener("load", ()=>{
 });
 
 getButton.addEventListener("click", e =>{
-    e.preventDefault(); //preventing form from submitting
+    e.preventDefault(); 
     getExchangeRate();
 });
 
